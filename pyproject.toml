@@ -21,15 +21,14 @@ dependencies = [
 optional-dependencies = { s3 = ["boto3>=1.28"], test = ["pytest>=7", "httpx>=0.24"] }
 
 [project.entry-points."spectral_diag.engines"]
-# Register your verified engine here in YOUR package's pyproject.toml, e.g.:
-# lean32 = "my_pkg.engine:Lean32Engine"
+lean32 = "cgurd.engine:Lean32Engine"
 
 [project.scripts]
 spectral = "spectral_diag.cli:cli"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["spectral_diag*"]
+include = ["spectral_diag*", "cgurd*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
