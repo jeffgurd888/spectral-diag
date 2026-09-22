@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spectral-diag"
+version = "0.2.0"
+description = "Engine-agnostic spectral diagnostics for matrices and operators: eigenvalues, spectral gap, heat kernel, symmetry checks — CLI, batch, CI gate, and API."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Jeffrey Michael Gurd" }]
+dependencies = [
+    "numpy>=1.24",
+    "fastapi>=0.100",
+    "uvicorn>=0.20",
+    "typer>=0.9",
+    "pydantic>=2.0",
+    "python-multipart>=0.0.6",
+]
+optional-dependencies = { s3 = ["boto3>=1.28"], test = ["pytest>=7", "httpx>=0.24"] }
+
+[project.entry-points."spectral_diag.engines"]
+# Register your verified engine here in YOUR package's pyproject.toml, e.g.:
+# lean32 = "my_pkg.engine:Lean32Engine"
+
+[project.scripts]
+spectral = "spectral_diag.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["spectral_diag*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
