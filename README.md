@@ -107,6 +107,9 @@ bad deploy. One pre-empted failure per pilot partner is the success metric.
 
 ## Status
 
-v0.2.0 — wrapper complete, tested, Dockerized. Engine slot open:
-**needs the verified engine's class name, import path, and returned dict
-keys** to wire the adapter and pin the golden-matrix regression suite.
+v0.2.0 — wrapper complete, tested, Dockerized. **Lean32Engine is registered**
+(`cgurd.engine:Lean32Engine`, entry-point `lean32`): the canonical 32x32
+Dirac operator diagnoses with `missing_fields == []`, mass gap 0.5, and the
+golden regression suite passes. Two meta fields — `order_zero_holds` and
+`order_one_holds` — are asserted by construction, not computed; they are
+labels, not verification results. See the docstring in `cgurd/engine.py`.
