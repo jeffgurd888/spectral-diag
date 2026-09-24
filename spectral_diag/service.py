@@ -55,7 +55,7 @@ class SpectralService:
         self, A: np.ndarray, params: Dict[str, Any] | None = None
     ) -> DiagnosticResult:
         params = params or {}
-        A = np.asarray(A, dtype=float)
+        A = np.asarray(A)  # keep complex dtype: D_F is complex Hermitian
         if A.ndim != 2 or A.shape[0] != A.shape[1]:
             raise ValueError(f"matrix must be square, got shape {A.shape}")
         if not np.all(np.isfinite(A)):
@@ -120,8 +120,8 @@ class SpectralService:
             "n": int(A.shape[0]),
             "eigenvalues": [float(x) for x in evals],
             "spectral_gap": float(evals[1] - evals[0]) if len(evals) > 1 else 0.0,
-            "trace": float(np.trace(A)),
-            "determinant": float(np.linalg.det(A)),
+            "trace": float(np.real(np.trace(A))),
+            "determinant": float(np.real(np.linalg.det(A))),
             "condition_number": float(np.linalg.cond(A)),
             "heat_kernel": heat,
             "symmetry": {
