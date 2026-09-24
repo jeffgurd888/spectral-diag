@@ -9,7 +9,7 @@ engine:            lean32  (cgurd.engine:Lean32Engine)
 engine_version:    v0.2.1
 service_version:   spectral-diag v0.2.0
 entry_point:       spectral_diag.engines → lean32
-input_hash:        sha256:<fill from SpectralService._key()>
+input_hash:        PENDING (filled by the run itself — never by hand)
 input_shape:       (32, 32)
 input_class:       self-adjoint real
 computation:       spectral_dimension + temporal_messages

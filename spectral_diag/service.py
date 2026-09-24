@@ -96,6 +96,9 @@ class SpectralService:
                 "engine": self.engine_name or "fallback",
                 "params": params,
                 "missing_fields": missing,
+                # Provenance: hash of the actual input bytes, emitted by the run
+                # itself on every call. Never hand-filled, never invented.
+                "input_hash": self._key(A, params),
             }
         )
         return DiagnosticResult(**merged, meta=meta)

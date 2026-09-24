@@ -6,6 +6,7 @@ Commands:
   gate      CI gate: non-zero exit if the matrix is unhealthy (the wedge)
   engines   list registered engines
   verify    self-check: determinism + golden-spectrum test
+  provenance  generate a provenance record for a matrix file, from the actual run
   serve     run the FastAPI server
 """
 
@@ -114,6 +115,24 @@ def verify():
     assert abs(r1.trace - 10.0) < 1e-9, "trace wrong"
     assert r1.meta["engine"] == "fallback", "engine label wrong"
     typer.echo("verify: OK")
+
+
+@cli.command()
+def provenance(
+    path: str,
+    engine: str = typer.Option(None, help="Engine name (default: fallback)"),
+    out: str = typer.Option(None, help="Write record to file instead of stdout"),
+):
+    """Generate a provenance record for a matrix file, computed from the actual run."""
+    from .provenance import generate_record
+
+    record = generate_record(load_path(path), engine, {})
+    if out:
+        with open(out, "w") as fh:
+            fh.write(record + "\n")
+        typer.echo(f"wrote {out}")
+    else:
+        typer.echo(record)
 
 
 @cli.command()
